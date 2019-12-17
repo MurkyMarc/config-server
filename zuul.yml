@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: zuul
+
+server:
+  port: 9999
+
+# able to configure the routes with zuul.routes instead of using the defaults
+
+zuul:
+  routes:
+    movies:
+      path: /movies
+      # if no discovery, we have to know where apps are running
+      # if we do know, we can use the service id. in this case it's movies
+      # if you have discovery, Zuul asks Eureka for the URL
+      service-id: movies # lines up with spring.application.name
+      
+      # remove whatever zuul.routes.movies.path says from the url
+      # /movies/api/v1.0 -> api/v1.0
+      strip-prefix: true   # true is the default. 
